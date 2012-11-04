@@ -19,7 +19,7 @@ void lex(int pos) {
             used[i] = true;
             p[pos] = i;
             lex(pos + 1);
-            p[pos] = 1; 
+            p[pos] = 0; 
             used[i] = false;
         }
     }
