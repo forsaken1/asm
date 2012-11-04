@@ -4,20 +4,28 @@
 include \masm32\include\masm32rt.inc
 
 .data
-    i               db 0
-    r               db 0
-    l               db 0
-    right           db 0
-    left            db 0
-    string          db 'worldwideweb'
-    fi              db '%s', 0
-    fo              db '%d', 13, 10, 0
-    fostr           db '%s', 13, 10, 0
+    i       db 0
+    r       db 0
+    l       db 0
+    right   db 0
+    left    db 0
+    fi      db '%s', 0
+    fo      db '%d', 13, 10, 0
+    msg     db 'Enter string:', 13, 10, 0
+
+.data?
+    string  db 100 dup (?)
     
 .code
 start:
+    invoke  crt_printf, addr msg
+    invoke  crt_scanf, addr fi, addr string
     mov     edx, 0
-    mov     dl, sizeof string 
+    
+cycle:
+    inc     edx
+    cmp     string[edx], 0
+    jnz     cycle
     
 WhileBegin:
     cmp     [r], dl
