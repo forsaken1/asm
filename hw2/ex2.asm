@@ -12,12 +12,11 @@ include \masm32\include\masm32rt.inc
     p       db  100 dup (0)
     used    db  100 dup (0)
     n       db  0
-    pos     db  0
 
 .code
 start:
     invoke  crt_printf, addr msg
-    invoke  crt_scanf, addr fi, addr n
+    ;invoke  crt_scanf, addr fi, addr n
     
     mov     eax, 0
 
@@ -27,8 +26,8 @@ cycle:
     cmp     eax, dword ptr [n]
     jne     cycle    
 
-    push    0
-    call    lex
+    ;push    0
+    ;call    lex
     
     inkey
     exit
@@ -37,7 +36,7 @@ lex PROC
     mov     ebx, 0
     pop     ebx
     cmp     ebx, dword ptr [n]
-    je      IfFalse
+    jne     IfFalse
 
     mov     ecx, 0
 
@@ -64,7 +63,7 @@ ForBegin:
     mov     eax, 0
     mov     eax, dword ptr used[ecx]
     cmp     eax, 1
-    jne     UsedTrue
+    je      UsedTrue
 
     mov     used[ecx], 1
     mov     dword ptr p[ebx], ecx
