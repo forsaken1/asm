@@ -11,12 +11,12 @@ include \masm32\include\masm32rt.inc
     v       db  100 dup (0)
     p       db  100 dup (0)
     used    db  100 dup (0)
-    n       db  0
+    n       db  ?
 
 .code
 start:
     invoke  crt_printf, addr msg
-    ;invoke  crt_scanf, addr fi, addr n
+    invoke  crt_scanf, addr fi, addr [n]
     
     mov     eax, 0
 
@@ -26,8 +26,8 @@ cycle:
     cmp     eax, dword ptr [n]
     jne     cycle    
 
-    ;push    0
-    ;call    lex
+    push    0
+    call    lex
     
     inkey
     exit
