@@ -7,7 +7,7 @@ include \masm32\include\masm32rt.inc
     fi      db  '%d', 0
     fo      db  '%d', 0
     fon     db  '%d', 13, 10, 0
-    nextstr db  13, 10
+    nextstr db  13, 10, 0
     msg     db  'Enter number:', 13, 10, 0
     v       db  100 dup (0)
     p       db  100 dup (0)
@@ -43,39 +43,7 @@ lex proc
     mov     ebx, 0
     mov     ebx, [esp+4]
     cmp     bl, [n]
-
-comment *
-    mov     edx, 0
-    mov     edx, [esp]
-    invoke  crt_printf, addr fon, edx
-
-    mov     edx, 0
-    mov     edx, [esp+4]
-    invoke  crt_printf, addr fon, edx
-
-    mov     edx, 0
-    mov     edx, [esp+8]
-    invoke  crt_printf, addr fon, edx
-
-    mov     edx, 0
-    mov     edx, [esp+12]
-    invoke  crt_printf, addr fon, edx
-
-    mov     edx, 0
-    mov     edx, [esp+16]
-    invoke  crt_printf, addr fon, edx
-
-    mov     edx, 0
-    mov     edx, [esp+20]
-    invoke  crt_printf, addr fon, edx
-
-    mov     edx, 0
-    mov     edx, [esp+24]
-    invoke  crt_printf, addr fon, edx    
-    
-    inkey *
-    
-    jl      IfFalse
+    jne     IfFalse
 
     mov     [i], 0
 
@@ -104,11 +72,9 @@ ForBegin:
     mov     ecx, 0
     mov     cl, [i]
     cmp     cl, [n]
-    jge     ForEnd
-
-    mov     eax, 0
-    mov     al, used[ecx]
-    cmp     al, 1
+    je      ForEnd
+   
+    cmp     used[ecx], 1
     je      UsedTrue
 
     mov     used[ecx], 1
@@ -118,41 +84,12 @@ ForBegin:
     push    ebx
     call    lex
     mov     ebx, 0
-    mov     ecx, 0
-
-    ;comment *
-    mov     edx, 0
-    mov     edx, [esp]
-    invoke  crt_printf, addr fon, edx
-
-    mov     edx, 0
-    mov     edx, [esp+4]
-    invoke  crt_printf, addr fon, edx
-
-    mov     edx, 0
-    mov     edx, [esp+8]
-    invoke  crt_printf, addr fon, edx
-
-    mov     edx, 0
-    mov     edx, [esp+12]
-    invoke  crt_printf, addr fon, edx
-
-    mov     edx, 0
-    mov     edx, [esp+16]
-    invoke  crt_printf, addr fon, edx
-
-    mov     edx, 0
-    mov     edx, [esp+20]
-    invoke  crt_printf, addr fon, edx
-
-    mov     edx, 0
-    mov     edx, [esp+24]
-    invoke  crt_printf, addr fon, edx    
-    
-    inkey 
-
+    mov     ecx, 0    
     pop     ebx
     pop     ecx
+    mov     [i], cl
+    ;invoke  crt_printf, addr fo, i
+    ;inkey
     mov     p[ebx], 0
     mov     used[ecx], 0
 
