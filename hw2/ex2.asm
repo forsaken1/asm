@@ -63,7 +63,7 @@ Print:
 
 PrintEnd:
     invoke  crt_printf, addr nextstr
-    jmp     ForEnd
+    ret
 
 IfFalse:
     mov     [i], 0
@@ -74,8 +74,8 @@ ForBegin:
     cmp     cl, [n]
     je      ForEnd
    
-    cmp     used[ecx], 1
-    je      UsedTrue
+    cmp     used[ecx], 0
+    jne     UsedTrue
 
     mov     used[ecx], 1
     mov     p[ebx], cl
@@ -83,13 +83,10 @@ ForBegin:
     push    ecx
     push    ebx
     call    lex
-    mov     ebx, 0
-    mov     ecx, 0    
     pop     ebx
     pop     ecx
+    sub     ebx, 1
     mov     [i], cl
-    ;invoke  crt_printf, addr fo, i
-    ;inkey
     mov     p[ebx], 0
     mov     used[ecx], 0
 
