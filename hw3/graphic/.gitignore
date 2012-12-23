@@ -47,6 +47,12 @@ local.properties
 bin/
 obj/
 Properties/
+*.csproj
+*.sln
+*.resx
+Form1.Designer.cs
+Program.cs
+
 *_i.c
 *_p.c
 *.ilk
