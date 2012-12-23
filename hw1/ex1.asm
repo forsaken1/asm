@@ -2,7 +2,7 @@
 .model flat, stdcall
 
 include \masm32\include\masm32rt.inc
-
+ 
 .data
     i       db 0
     r       db 0
