@@ -44,6 +44,10 @@ local.properties
 # Build results
 [Dd]ebug/
 [Rr]elease/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.txt
 *_i.c
 *_p.c
 *.ilk
