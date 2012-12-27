@@ -58,7 +58,6 @@ int main() {
 			}
 			cout << endl;
 		}
-		//fclose(stdout);
 	}
 
 	return 0;

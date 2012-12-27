@@ -45,6 +45,7 @@ local.properties
 [Dd]ebug/
 [Rr]elease/
 graphic/
+*.xls
 *.sln
 *.vcxproj
 *.vcxproj.filters

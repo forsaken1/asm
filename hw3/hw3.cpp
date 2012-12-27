@@ -1,7 +1,8 @@
 #include <iostream>
 
 int main() {
-	int time[1001], _time[1001], time_null[1001], _time_null[1001], count = 0, a = 0, d = 0;
+	unsigned long long time[1001], time_null[1001];
+	int count = 0, a = 0, d = 0;
 
 	for(int i = 1; i <= 1000; i++) {
 		int *m = (int*)malloc(sizeof(int) * 1000 * i);
@@ -33,10 +34,11 @@ int main() {
 			mov d, edx
 			mov a, eax
 		}
+		time[i] = d;
+		time[i] << 32;
 		time[i] = a;
-		_time[i] = d;
 		
-		//--- Пустой цикл ---
+		//--- Цикл без обращения к памяти ---
 
 		a = 0;
 		d = 0;
@@ -49,7 +51,9 @@ int main() {
 			mov d, edx
 		}
 
-		for(int j = 0; j < 1000 * i; j++) {}
+		for(int j = 0; j < 1000 * i; j++) {
+			j * j;
+		}
 
 		_asm {
 			mov eax, 0
@@ -60,20 +64,18 @@ int main() {
 			mov d, edx
 			mov a, eax
 		}
+		time_null[i] = d;
+		time_null[i] << 32;
 		time_null[i] = a;
-		_time_null[i] = d;
 		free(m);
 	}
 
-	freopen("output.txt", "w", stdout);
+	freopen("output.xls", "w", stdout);
+
+	int s = sizeof(int) * 1000;
 
 	for(int i = 1; i < count; i += 5)
-		std::cout << i << " " << _time[i] << time[i] << std::endl;
-
-	freopen("output_null.txt", "w", stdout);
-
-	for(int i = 1; i < count; i += 5)
-		std::cout << i << " " << _time_null[i] << time_null[i] << std::endl;
+		std::cout << i * s << "\t" << time[i] << "\t" << time_null[i] << std::endl;
 
 	return 0;
 }
