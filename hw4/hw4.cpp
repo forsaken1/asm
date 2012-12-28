@@ -2,13 +2,13 @@
 #include <string>
 #include <math.h>
 
-#define E 0.01
+#define E 0.001
 
 using namespace std;
 
 float u[101][101][16], d_t = 0.01, d_x = 0.1, d_y = 0.1;
 float _u[101][101][16];
-int n = 20, m = 20, s = 6;
+int n = 20, m = 20, s = 16;
 
 float f_u(float i, float j) {
 	return sin(4 * i * d_x) - sin(4 * j * d_y);
@@ -122,7 +122,7 @@ int main() {
 
 	//--- output ---
 	for(int k = 1; k < s; k++) {
-		freopen(string("out_" + string(1, k + '0') + ".txt").c_str(), "w", stdout);
+		freopen(string("out_" + string(1, k % 10 + '0') + ".txt").c_str(), "w", stdout);
 		for(int i = 1; i < n; i++) {
 			for(int j = 1; j < m; j++) {
 				cout << u[i][j][k] << "\t";

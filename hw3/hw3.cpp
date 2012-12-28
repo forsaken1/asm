@@ -14,6 +14,7 @@ int main() {
 
 		//--- Цикл с обращением к памяти ---
 		_asm {
+			cpuid
 			mov eax, 0
 			mov edx, 0
 			rdtsc
@@ -33,6 +34,7 @@ int main() {
 			sub eax, a
 			mov d, edx
 			mov a, eax
+			cpuid
 		}
 		time[i] = d;
 		time[i] << 32;
@@ -44,6 +46,7 @@ int main() {
 		d = 0;
 
 		_asm {
+			cpuid
 			mov eax, 0
 			mov edx, 0
 			rdtsc
@@ -63,6 +66,7 @@ int main() {
 			sub eax, a
 			mov d, edx
 			mov a, eax
+			cpuid
 		}
 		time_null[i] = d;
 		time_null[i] << 32;
