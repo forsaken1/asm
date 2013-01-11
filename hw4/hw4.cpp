@@ -2,7 +2,7 @@
 #include <string>
 #include <math.h>
 
-#define E 0.001
+#define E 0.0000001
 
 using namespace std;
 
@@ -11,12 +11,12 @@ float _u[101][101][16];
 int n = 20, m = 20, s = 16;
 
 float f_u(float i, float j) {
-	return sin(4 * i * d_x) - sin(4 * j * d_y);
+	return i * d_x * j * d_y;
 }
 
 int main() {
 	/*
-	function: sin(4x) - sin(4y)
+	function: x^2
 	x from 0 to 2
 	y from 0 to 2
 	Ox - 20 points
@@ -113,12 +113,14 @@ int main() {
 	//--- comparing ---
 	for(int k = 1; k < s; k++)
 		for(int i = 1; i < n; i++)
-			for(int j = 1; j < m; j++)
+			for(int j = 1; j < m; j++) {
+				cout << fabs(u[i][j][k] - _u[i][j][k]) << endl;
 				if(fabs(u[i][j][k] - _u[i][j][k]) > E) {
 					cout << "U and _U dont compare" << endl;
 					system("PAUSE");
 					return 0;
 				}
+			}
 
 	//--- output ---
 	for(int k = 1; k < s; k++) {
@@ -126,15 +128,6 @@ int main() {
 		for(int i = 1; i < n; i++) {
 			for(int j = 1; j < m; j++) {
 				cout << u[i][j][k] << "\t";
-			}
-			cout << endl;
-		}
-	}
-	for(int k = 1; k < s; k++) {
-		freopen(string("_out_" + string(1, k + '0') + ".txt").c_str(), "w", stdout);
-		for(int i = 1; i < n; i++) {
-			for(int j = 1; j < m; j++) {
-				cout << _u[i][j][k] << "\t";
 			}
 			cout << endl;
 		}

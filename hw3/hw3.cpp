@@ -10,13 +10,16 @@ int main() {
 		if(m == NULL)
 			break;
 
+		//--- Загрузим в кэш ---
+		for(int j = 0; j < 1000 * i; j++) {
+			m[j] = j * j;
+		}
+
 		count++;
 
 		//--- Цикл с обращением к памяти ---
 		_asm {
 			cpuid
-			mov eax, 0
-			mov edx, 0
 			rdtsc
 			mov a, eax
 			mov d, edx
@@ -27,8 +30,6 @@ int main() {
 		}
 
 		_asm {
-			mov eax, 0
-			mov edx, 0
 			rdtscp
 			sub edx, d
 			sub eax, a
@@ -47,8 +48,6 @@ int main() {
 
 		_asm {
 			cpuid
-			mov eax, 0
-			mov edx, 0
 			rdtsc
 			mov a, eax
 			mov d, edx
@@ -59,8 +58,6 @@ int main() {
 		}
 
 		_asm {
-			mov eax, 0
-			mov edx, 0
 			rdtscp
 			sub edx, d
 			sub eax, a
@@ -79,7 +76,7 @@ int main() {
 	int s = sizeof(int) * 1000;
 
 	for(int i = 1; i < count; i += 5)
-		std::cout << i * s << "\t" << time[i] << "\t" << time_null[i] << std::endl;
+		std::cout << i * s << "\t" << (time[i] - time_null[i]) / (1000 * i) << std::endl;
 
 	return 0;
 }
